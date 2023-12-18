@@ -1,8 +1,11 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  draw :madmin
   get '/privacy', to: 'home#privacy'
   get '/terms', to: 'home#terms'
+  get 'finance', to:'static_pages#finance'
+
 authenticate :user, lambda { |u| u.admin? } do
   mount Sidekiq::Web => '/sidekiq'
 
